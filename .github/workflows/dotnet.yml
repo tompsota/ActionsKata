@@ -7,6 +7,7 @@ jobs:
       - run: echo "Hello world"
 
   build:
+    needs: welcome
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,6 +17,7 @@ jobs:
       - run: dotnet build ActionsKataExample
         
   test:
+    needs: [welcome, build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -25,6 +27,7 @@ jobs:
       - run: dotnet test ActionsKataExample.Tests
         
   publish:
+    needs: [welcome, build, test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
